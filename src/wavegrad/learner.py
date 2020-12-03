@@ -110,7 +110,7 @@ class WaveGradLearner:
         if os.path.islink(link_name):
           os.unlink(link_name)
         os.symlink(save_basename, link_name)
-    except OSError e:
+    except OSError:
         pass
 
   def restore_from_checkpoint(self, filename='weights'):
