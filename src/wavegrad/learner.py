@@ -103,12 +103,15 @@ class WaveGradLearner:
     save_name = f'{self.model_dir}/{save_basename}'
     link_name = f'{self.model_dir}/{filename}.pt'
     torch.save(self.state_dict(), save_name)
-    if os.name == 'nt':
-      torch.save(self.state_dict(), link_name)
-    else:
-      if os.path.islink(link_name):
-        os.unlink(link_name)
-      os.symlink(save_basename, link_name)
+    try:
+        if os.name == 'nt':
+        torch.save(self.state_dict(), link_name)
+      else:
+        if os.path.islink(link_name):
+          os.unlink(link_name)
+        os.symlink(save_basename, link_name)
+    except OSError e:
+        pass
 
   def restore_from_checkpoint(self, filename='weights'):
     try:
