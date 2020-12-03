@@ -133,7 +133,7 @@ class WaveGradLearner:
           raise RuntimeError(f'Detected NaN loss at step {self.step}.')
         if self.step % 100 == 0:
           self._write_summary(self.step, features, loss)
-        if self.step % 5000 == 0:
+        if self.step % (len(self.dataset)*10) == 0:
           self.save_to_checkpoint()
         self.step += 1
 
