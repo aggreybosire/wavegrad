@@ -104,7 +104,7 @@ class WaveGradLearner:
     link_name = f'{self.model_dir}/{filename}.pt'
     torch.save(self.state_dict(), save_name)
     try:
-        if os.name == 'nt':
+      if os.name == 'nt':
         torch.save(self.state_dict(), link_name)
       else:
         if os.path.islink(link_name):
